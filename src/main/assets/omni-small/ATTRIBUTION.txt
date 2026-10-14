@@ -1,0 +1,24 @@
+2xHFA2kSPAN (SPAN 2x)
+Copyright (c) Philip Hofmann
+License: Creative Commons Attribution 4.0 International
+Model information: https://openmodeldb.info/models/2x-HFA2kSPAN
+Original model: https://huggingface.co/Phips/2xHFA2kSPAN
+Original PyTorch model SHA-256: 59f41331bf32f122b73aaa9938b8baee7cb3e86125bdb55983d26074ac0d7285
+Source file converted here: 2xHFA2kSPAN.safetensors (SHA-256: 616666ffaa9ccdf604e3d6b98bf1ec32c6ed08c4d36da7fed1d013843e5a45e9)
+Converted NCNN parameter SHA-256: 4b3979ac73e443699ed422a19160e740d75ea03a05deacf10dc8a3f426e7734b
+Converted NCNN weights SHA-256: e4a41b84614bc31576e7f16ec33830ff0a0cfcfb928b9b4d6cc1f2d28e4275a7
+
+The bundled NCNN conversion preserves the original float32 weights. This
+application's Vulkan image pipeline works in BGR plane order, so the conversion
+adds one 1x1 permutation convolution in front of the network and one behind it
+(R<->B swap); both are numerically exact. The model's trailing torch.cat of four
+48-channel tensors is rewritten as a sum of four 1x1 convolutions (numerically
+equivalent, and avoids depending on pnnx's Concat handling).
+
+This 2x anime SPAN model fills the "Omni Small" model pack: the OmniSR
+(2xHFA2kOmniSR) route was abandoned because pnnx crashes on that graph and its
+dynamic interpolate gets baked to the traced size (see
+.workbuddy/enhance-packs/README.md, section 5.2).
+
+This model is distributed under CC BY 4.0:
+https://creativecommons.org/licenses/by/4.0/
